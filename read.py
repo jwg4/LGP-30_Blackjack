@@ -130,9 +130,18 @@ def decode_word(word):
         'CLER 2F 8C'
         >>> decode_word("l2k94")
         'BRNG 2D 94'
+        >>> decode_word("68")
+        'STOP 00 68'
     """
     if not word:
         return "EMPTY"
+    
+    # STOP has less than 5 nybbles
+    if len(word) < 5:
+        op = OPCODES["0"]
+        location_value = parse_lhex_word(word)
+        location = format_hword_in_hex(location_value)
+        return "%s %s" % (op, location)
     
     if len(word) == 5:
         opcode = word[0]
