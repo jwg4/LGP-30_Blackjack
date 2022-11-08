@@ -1,5 +1,7 @@
 # Notes on the blackjack code
 
+## Subroutine at 32 80
+
 This was the first single piece of code I was able to understand in detail, although it still holds some mysteries.
 
 ```
@@ -62,3 +64,5 @@ This part of the subroutine serves to print numbers, where the number is a singl
 So the other branches seem to print the first digit of a two digit number, after checking whether the number (still stored in multiplied-by-4 form) is bigger than 40, 80 and 120 respectively. In other words numbers 10 or above are prefixed by 1, 20 or above by 2, 30 or above by 3. So we can display any decimal number up to 39 (probably only 30 for blackjack values or 31 for dates are needed).
 
 I originally got confused by the 3 extra branches because I guessed that the served to print 'J', 'Q' and 'K' for the card values.
+
+After printing a one-digit number, we jump to 31 B0 (I think that this is the location overwritten by the CALL before entering the subroutine). After printing the first digit of a two-digit number, we jump to 32 9C (or have ended up there without a jump) and it's not yet clear to me when and how this location (containing a stop) gets overwritten with something more useful.
