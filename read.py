@@ -102,7 +102,7 @@ def decode_footer(footer):
 
 OPCODES = {
     '0': "STOP", ## z 
-    '1': "BRNG", ## b 
+    'l': "BRNG", ## b 
     '2': "STOR", ## y
     '3': "CALL", ## r 
     '4': "INPT", ## i 
@@ -128,6 +128,8 @@ def decode_word(word):
         'JUMP 31 C4'
         >>> decode_word("k2w8j")
         'CLER 2F 8C'
+        >>> decode_word("l2k94")
+        'BRNG 2D 94'
     """
     if not word:
         return "EMPTY"
@@ -198,7 +200,18 @@ def gen_format_block(block):
 
 def format_block(block):
     """
-        >>> print(format_block(['LOCATION 2D 00', ['CLER 2F 8C', 'CLER 32 78', 'JUMP 31 C4', 'ADD  2D 98', 'STOR 2D 78', 'ADD  2E FC', 'STOR 2D 54', 'STOR 2D 58'], ['STOR 2D 6C', 'CALL 32 F0', 'JUMP 32 D8', 'MASK 31 F0', 'SUB  31 E0', 'TEST 2D 24', 'ADD  2E 8C', 'HOLD 2D 94'], ['ADD  2D 0C', 'STOR 2D 68', 'STOR 2D 70', 'STOR 2D 50', 'CONSTANT 00 01  2D A8', 'MASK 2D E4', 'SUB  2D E4', 'TEST 2D 68'], ['JUMP 2E 68', 'CONSTANT 00 01  2D D0', 'CONSTANT 00 01  2D A8', 'ADD  2D E4', 'HOLD 2D A8', 'CLER 2D 88', 'CONSTANT 00 01  2D D4', 'CLER 2D 8C'], ['CALL 33 00', 'JUMP 33 00', 'CONSTANT 56 A4  06 56', 'CONSTANT 0E 06  62 7E', 'JUMP 2E 00', 'CONSTANT 00 00  00 18', 'CONSTANT 00 00  2D D0', 'CONSTANT 11 F2  08 06'], ['CONSTANT 56 14  06 56', 'CONSTANT 56 1C  06 56', 'CONSTANT 56 A4  06 56', 'CONSTANT 57 2C  06 56', 'CONSTANT 56 34  06 56', 'CONSTANT 56 3C  06 56', 'CONSTANT 56 44  06 56', 'CONSTANT 56 4C  06 56'], ['CONSTANT 28 0C  04 06', 'CONSTANT 10 64  08 06', 'CONSTANT 10 75  08 06', 'CONSTANT 10 6C  08 06', 'CONSTANT 0E 06  7A 7E', 'CONSTANT 0E 06  62 7E', 'CONSTANT 0E 06  2A 7E', 'CONSTANT 0E 06  6A 7E'], ['CONSTANT 01 00  00 00', 'CONSTANT 00 80  00 00', 'CONSTANT 00 01  00 00', 'CONSTANT 00 00  80 00', 'CONSTANT 80 00  00 04', 'CONSTANT 7E 7E  7E 7E', 'CONSTANT 7F FF  FF FC', 'CONSTANT 00 40  00 00'], 'FOOTER 3C 6F  C5 4C (????)']))
+        >>> print(format_block(
+        ... ['LOCATION 2D 00', 
+        ... ['CLER 2F 8C', 'CLER 32 78', 'JUMP 31 C4', 'ADD  2D 98', 'STOR 2D 78', 'ADD  2E FC', 'STOR 2D 54', 'STOR 2D 58'], 
+        ... ['STOR 2D 6C', 'CALL 32 F0', 'JUMP 32 D8', 'MASK 31 F0', 'SUB  31 E0', 'TEST 2D 24', 'ADD  2E 8C', 'HOLD 2D 94'], 
+        ... ['ADD  2D 0C', 'STOR 2D 68', 'STOR 2D 70', 'STOR 2D 50', 'CONSTANT 00 01  2D A8', 'MASK 2D E4', 'SUB  2D E4', 'TEST 2D 68'], 
+        ... ['JUMP 2E 68', 'CONSTANT 00 01  2D D0', 'CONSTANT 00 01  2D A8', 'ADD  2D E4', 'HOLD 2D A8', 'CLER 2D 88', 'CONSTANT 00 01  2D D4', 'CLER 2D 8C'], 
+        ... ['CALL 33 00', 'JUMP 33 00', 'CONSTANT 56 A4  06 56', 'CONSTANT 0E 06  62 7E', 'JUMP 2E 00', 'CONSTANT 00 00  00 18', 'CONSTANT 00 00  2D D0', 'CONSTANT 11 F2  08 06'], 
+        ... ['CONSTANT 56 14  06 56', 'CONSTANT 56 1C  06 56', 'CONSTANT 56 A4  06 56', 'CONSTANT 57 2C  06 56', 'CONSTANT 56 34  06 56', 'CONSTANT 56 3C  06 56', 'CONSTANT 56 44  06 56', 'CONSTANT 56 4C  06 56'], 
+        ... ['CONSTANT 28 0C  04 06', 'CONSTANT 10 64  08 06', 'CONSTANT 10 75  08 06', 'CONSTANT 10 6C  08 06', 'CONSTANT 0E 06  7A 7E', 'CONSTANT 0E 06  62 7E', 'CONSTANT 0E 06  2A 7E', 'CONSTANT 0E 06  6A 7E'], 
+        ... ['CONSTANT 01 00  00 00', 'CONSTANT 00 80  00 00', 'CONSTANT 00 01  00 00', 'CONSTANT 00 00  80 00', 'CONSTANT 80 00  00 04', 'CONSTANT 7E 7E  7E 7E', 'CONSTANT 7F FF  FF FC', 'CONSTANT 00 40  00 00'], 
+        ... 'FOOTER 3C 6F  C5 4C (????)']
+        ... ))
         LOCATION 2D 00
         <BLANKLINE>
         CLER 2F 8C
