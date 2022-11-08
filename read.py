@@ -100,6 +100,20 @@ def decode_footer(footer):
     return "FOOTER %s (%s)" % (hex_word, text_word)
 
 
+def default_op_format(op, word):
+    location_value = parse_lhex_word(word[1:5])
+    location = format_hword_in_hex(location_value)
+    return "%s %s" % (op, location)
+
+
+def format_print_statement(op, word):
+    word_value = parse_lhex_word(word)
+    char_value = (word_value // 256) % 64
+    char = print_char(char_value)
+    hex_char = format_hword_in_hex(char_value)
+    return "%s %s '%s'" % (op, hex_char, char)
+
+
 OPCODES = {
     '0': "STOP", ## z 
     'l': "BRNG", ## b 
@@ -119,6 +133,13 @@ OPCODES = {
     'w': "SUB ", ## s
 }
 
+OPCODE_FORMATS = { OPCODES[op]: default_op_format for op in OPCODES }
+OPCODE_FORMATS.update(
+    {
+        'PRNT': format_print_statement
+    }
+)
+
 
 def decode_word(word):
     """
@@ -132,6 +153,8 @@ def decode_word(word):
         'BRNG 2D 94'
         >>> decode_word("68")
         'STOP 00 68'
+        >>> decode_word("8l000")
+        "PRNT 00 10 '?'"
     """
     if not word:
         return "EMPTY"
@@ -148,9 +171,7 @@ def decode_word(word):
 
         if opcode in OPCODES:
             op = OPCODES[opcode]
-            location_value = parse_lhex_word(word[1:5])
-            location = format_hword_in_hex(location_value)
-            return "%s %s" % (op, location)
+            return OPCODE_FORMATS[op](op, word)
 
     value = parse_lhex_word(word) 
 
