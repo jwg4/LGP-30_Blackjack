@@ -1,0 +1,24 @@
+As you certainly know, the ASCII code didn't exist at the time of
+the LGP-30, so the Flexowriter and the LGP-30 didn't use it.
+
+When we read the papertapes, we had to use much more modern equipment
+to bring the tapes to our ftp server:
+A PDP8/E with a FACIT papertape reader is our working horse to do
+the transfer. The both programs FLEX.PA and REFLEX.PA do the translation
+from Flexowritercode to ASCII and back. They are written in PDP8 assembler
+PAL-8.
+Both programs are available here.
+
+From the PDP8 kermit did the rest.
+
+----
+
+There are two other utilities needed for transferring files between the
+LGP-30 and a PC, both are Turbo Pascal programs that can easily be translated
+into other languages. The first program is 'flex2asc' that translates
+a file from Flexowriter code into ASCII. You need it if you read in a tape
+on a PC like I do to produce a readable file either for documentation
+or for my LGP-30 simulator. The other program is 'asc2flex' which does the
+job the other way round. It is needed in order to produce LGP-30 readable
+papertapes from ASCII sources.
+
